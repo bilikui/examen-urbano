@@ -152,4 +152,46 @@ class ClienteController extends Controller
 
         return new JsonResponse($data);
     }
+
+    public function search(Request $request)
+    {
+        $field = $request->get('field');
+        $search = $request->get('search');
+        
+        $query = $this
+            ->em
+            ->getRepository(Cliente::class)
+            ->createQueryBuilder('c');
+            
+
+        if ($field == 'grupoCliente') {
+            $query
+                ->join('c.grupoCliente', 'gc')
+                ->where('gc.nombre LIKE :search');
+        } else {
+            $query->where('c.' . $field . ' LIKE :search');
+        }
+
+        $clientes = $query 
+            ->setParameter('search', '%' . $search . '%')
+            ->getQuery()
+            ->getResult();
+            
+        foreach($clientes as $cliente) {
+            $data['data'][] = [
+                'id' => $cliente->getId(),
+                'nombre' => $cliente->getNombre(),
+                'apellido' => $cliente->getApellido(),
+                'email' => $cliente->getEmail(),
+                'observaciones' => $cliente->getObservaciones(),
+                'grupoCliente' => [
+                    'id' => $cliente->getGrupoCliente()->getId(),
+                    'nombre' => $cliente->getGrupoCliente()->getNombre(),
+                ]
+            ];
+        }
+        $data['status'] = 'ok';
+            
+        return new JsonResponse($data);
+    }
 }

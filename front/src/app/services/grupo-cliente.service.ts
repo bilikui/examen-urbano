@@ -81,6 +81,30 @@ export class GrupoClienteService {
         return _response;
     }
 
+    search(field: string, search: string) {
+        let _gruposClientes = Array<GrupoCliente>();
+        let _grupoCliente = new GrupoCliente();
+        let self = this;
+        let _data = {field: field, search: search};
+        $.ajax({
+            url: '/examen/back/grupo-cliente/search',
+            type: 'get',
+            data: _data,
+            dataType: 'json',
+            async: false,
+            success: function(response: any) {
+                if (response.status == 'ok') {
+                    let _item: any;
+                    for(let i = 0; i < response.data.length; i++) {
+                        _item = response.data[i];
+                        _grupoCliente = self._dataBinding(_item);
+                        _gruposClientes.push(_grupoCliente);
+                    }
+                }
+            }
+        });
+        return _gruposClientes;     
+    }
 
     _dataBinding(data: any): GrupoCliente {
         return new GrupoCliente(data.id, data.nombre);

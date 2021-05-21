@@ -38,4 +38,15 @@ export class ClienteComponent implements OnInit {
       window.location.reload();
     }
   }
+
+  busqueda() {
+    let field = $('#field').val().trim()
+    let search = $('#busqueda').val().trim();
+    this.clientes = this._clienteService.search(field, search);
+  }
+
+  limpiarBusqueda() {
+    $('#busqueda').val('');
+    this.busqueda();
+  }
 }

@@ -3,6 +3,8 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import GrupoCliente from '../../models/GrupoCliente';
 import { GrupoClienteService } from '../../services/grupo-cliente.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-grupo-cliente',
   templateUrl: './grupo-cliente.component.html',
@@ -33,5 +35,15 @@ export class GrupoClienteComponent implements OnInit {
       alert("Se ha borrado el registro correctamente.");
       window.location.reload();
     }
+  }
+
+  busqueda() {
+    let search = $('#busqueda').val().trim();
+    this.gruposClientes = this._grupoClienteService.search('nombre', search);
+  }
+
+  limpiarBusqueda() {
+    $('#busqueda').val('');
+    this.busqueda();
   }
 }

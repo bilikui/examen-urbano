@@ -88,6 +88,31 @@ export class ClienteService {
         return _response;
     }
 
+    search(field: string, search: string) {
+        let _clientes = new Array<Cliente>();
+        let _cliente: Cliente;
+        let self = this;
+        let _data = {field: field, search: search};
+        $.ajax({
+            url: '/examen/back/cliente/search',
+            type: 'get',
+            data: _data,
+            dataType: 'json',
+            async: false,
+            success: function(response: any) {
+                if (response.status == 'ok') {
+                    let _item: any;
+                    for(let i = 0; i < response.data.length; i++) {
+                        _item = response.data[i];
+                        _cliente = self._dataBinding(_item);
+                        _clientes.push(_cliente);
+                    }
+                }
+            }
+        });
+        return _clientes;     
+    }
+
     _dataBinding(data: any): Cliente {
         let _grupoCliente = new GrupoCliente(data.grupoCliente.id, data.grupoCliente.nombre);
         return new Cliente(data.id, data.nombre, data.apellido, data.email, _grupoCliente, data.observaciones);

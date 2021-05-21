@@ -1,5 +1,22 @@
 <button class="btn btn-primary" (click)="new()">Alta de cliente</button>
 
+<br/>
+<br/>
+<div class="md-4">
+    Buscar por 
+    <select name="field" id="field">
+        <option value="nombre">Nombre</option>
+        <option value="apellido">Apellido</option>
+        <option value="email">Email</option>
+        <option value="grupoCliente">Grupo de cliente</option>
+        <option value="observaciones">Observaciones</option>
+    </select>&nbsp; 
+    <input type="text" name="busqueda" id="busqueda">&nbsp;
+    <button class="btn btn-primary" (click)="busqueda()">Buscar</button>&nbsp;
+    <button class="btn btn-primary" (click)="limpiarBusqueda()">Limpiar</button>
+</div>
+
+
 <table class="table">
     <thead>
         <tr>

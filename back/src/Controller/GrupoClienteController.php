@@ -111,4 +111,30 @@ class GrupoClienteController extends Controller
         }
         return new JsonResponse($data);
     }
+
+    public function search(Request $request)
+    {
+        $field = $request->get('field');
+        $search = $request->get('search');
+
+        $gruposClientes = $this
+            ->em
+            ->getRepository(GrupoCliente::class)
+            ->createQueryBuilder('gc')
+            ->where('gc.' . $field . ' LIKE :search')
+            ->setParameter('search', '%' . $search . '%')
+            ->getQuery()
+            ->getResult();
+
+        foreach($gruposClientes as $grupoCliente) {
+            $data['data'][] = [
+                'id' => $grupoCliente->getId(),
+                'nombre' => $grupoCliente->getNombre(),
+            ];
+        }
+
+        $data['status'] = 'ok';
+            
+        return new JsonResponse($data);
+    }
 }

@@ -47,6 +47,18 @@
             "path": "/grupo-cliente/delete",
             "class": "\\Urbano\\Controller\\GrupoClienteController",
             "method": "delete"
+        },
+        {
+            "type": "GET",
+            "path": "/grupo-cliente/search",
+            "class": "\\Urbano\\Controller\\GrupoClienteController",
+            "method": "search"
+        },
+        {
+            "type": "GET",
+            "path": "/cliente/search",
+            "class": "\\Urbano\\Controller\\ClienteController",
+            "method": "search"
         }
     ]
 }
