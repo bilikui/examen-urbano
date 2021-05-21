@@ -1,0 +1,23 @@
+{
+    "routes": [
+        {
+            "type": "GET",
+            "path": "/cliente/fetchAll",
+            "class": "\\Urbano\\Controller\\ClienteController",
+            "method": "fetchAll"
+        },
+        {
+            "type": "GET",
+            "path": "/grupo-cliente/fetchAll",
+            "class": "\\Urbano\\Controller\\GrupoClienteController",
+            "method": "fetchAll"
+        },
+        {
+            "type": "POST",
+            "path": "/cliente/save",
+            "class": "\\Urbano\\Controller\\ClienteController",
+            "method": "save"
+        }
+
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "name": "Examen Urbano",
+    "description": "Exeman Urgano Package",
+    "authors": [
+        {
+            "name": "Gustavo Luis",
+            "email": "gustavo639@gmail.com",
+            "homepage": "https://www.linkedin.com/in/gustavo-luis-24b9938/",
+            "role": "Developer"
+        }
+    ],
+
+    "require": {
+        "monolog/monolog": "1.0.*",
+        "doctrine/orm": "^2.6.2",
+        "symfony/yaml": "2.*",
+        "symfony/http-foundation": "^5.2"
+    },
+
+    "autoload": {
+        "psr-4": {"Urbano\\": "src/"}
+    }
+}

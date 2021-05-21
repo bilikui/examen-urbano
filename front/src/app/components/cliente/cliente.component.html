@@ -1,0 +1,31 @@
+<button class="btn btn-primary" (click)="new()">Alta de cliente</button>
+
+<table class="table" border="1">
+    <thead>
+        <tr>
+            <th align="center">Nombre</th>
+            <th align="center">Apellido</th>
+            <th align="center">Email</th>
+            <th align="center">Grupo de cliente</th>
+            <th align="center" colspan="2">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cliente of clientes; let i = index">
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.apellido }}</td>
+            <td>{{ cliente.email }}</td>
+            <td>{{ cliente.grupoCliente }}</td>
+            <td> 
+                <button type="button" class="btn btn-primary" title="Editar">
+                    <span class="fa fa-pencil" aria-hidden="true"></span>
+                </button>    
+            </td>
+            <td> 
+                <button type="button" class="btn btn-danger" aria-label="Left Align">
+                    <span class="fa fa-row" aria-hidden="true"></span>
+                </button>    
+            </td>
+        </tr>
+    </tbody>
+</table>

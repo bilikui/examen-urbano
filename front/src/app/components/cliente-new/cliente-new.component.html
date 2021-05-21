@@ -1,0 +1,52 @@
+<form class="col-md-12" #clienteForm="ngForm" (ngSubmit)="clienteNewSubmit()">
+    
+    <div class="row">
+        <div class="col-md-6">
+            <label for="nombre" class="form-label">Nombre *</label>
+            <input type="text" class="form-control" name="nombre" #nombre="ngModel" [(ngModel)]="cliente.nombre" required/>
+            <small style="color: red;" *ngIf="!nombre.valid && nombre.touched">
+                El nombre es obligatorio.
+            </small>
+        </div>
+    
+        <div class="col-md-6">
+            <label for="apellido" class="form-label">Apellido *</label>
+            <input type="text" class="form-control" name="apellido" #apellido="ngModel" [(ngModel)]="cliente.apellido" required/>
+            <small style="color: red;" *ngIf="!apellido.valid && apellido.touched">
+                El apellido es obligatorio.
+            </small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="email" class="form-label">Email *</label>
+            <input type="email" class="form-control" name="email" #email="ngModel" [email]="true" [(ngModel)]="cliente.email" required/>
+            <small style="color: red;" *ngIf="!email.valid && email.touched">
+                El email es inválido
+            </small>
+        </div>
+
+        <div class="col-md-6">
+            <label for="grupoCliente" class="form-label">Grupo de clientes *</label>
+            <select class="form-select" name="grupoCliente" #grupoCliente="ngModel" [(ngModel)]="cliente.grupoCliente" required>
+                <option *ngFor="let grupoCliente of gruposClientes; let i = index" value="{{ grupoCliente.id }}">{{ grupoCliente.nombre }}</option>
+            </select>
+            <small style="color: red;" *ngIf="!grupoCliente.valid && grupoCliente.touched">
+                El grupo de clientes es obligatorio.
+            </small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label for="observaciones" class="form-label">Observaciones</label>
+            <textarea class="form-control" name="observaciones" #observaciones="ngModel" [(ngModel)]="cliente.observaciones">
+            </textarea>
+        </div>
+    </div>
+    <div class="clear-fix">&nbsp;</div>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="submit" [disabled]="clienteForm.invalid">Guardar</button>
+        </div>
+    </div>
+</form>
