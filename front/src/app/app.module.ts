@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { ClienteComponent } from './components/cliente/cliente.component';
 import { ClienteNewComponent } from './components/cliente-new/cliente-new.component';
 import { GrupoClienteComponent } from './components/grupo-cliente/grupo-cliente.component';
+import { GrupoClienteNewComponent } from './components/grupo-cliente-new/grupo-cliente-new.component';
 import { routing, appRoutingProviders } from './app.routing';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     ClienteComponent,
     GrupoClienteComponent,
-    ClienteNewComponent
+    ClienteNewComponent,
+    GrupoClienteNewComponent
   ],
   imports: [
     BrowserModule, 

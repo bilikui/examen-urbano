@@ -6,18 +6,15 @@ import { AppComponent } from './app.component';
 import { ClienteComponent } from './components/cliente/cliente.component';
 import { ClienteNewComponent } from './components/cliente-new/cliente-new.component';
 import { GrupoClienteComponent } from './components/grupo-cliente/grupo-cliente.component';
-
+import { GrupoClienteNewComponent} from './components/grupo-cliente-new/grupo-cliente-new.component';
+ 
 const appRoutes: Routes = [
     {path: 'cliente', component: ClienteComponent},
     {path: 'cliente/new', component: ClienteNewComponent},
     {path: 'cliente/new/:id', component: ClienteNewComponent},
-    {path: 'cliente/update/:id', component: ClienteComponent},
-    {path: 'cliente/delete/:id', component: ClienteComponent},
     {path: 'grupo-cliente', component: GrupoClienteComponent},
-    {path: 'grupo-cliente/new', component: GrupoClienteComponent},
-    {path: 'grupo-cliente/show/:id', component: GrupoClienteComponent},
-    {path: 'grupo-cliente/update/:id', component: GrupoClienteComponent},
-    {path: 'grupo-cliente/delete/:id', component: GrupoClienteComponent}
+    {path: 'grupo-cliente/new', component: GrupoClienteNewComponent},
+    {path: 'grupo-cliente/new/:id', component: GrupoClienteNewComponent}
 ];
 
 export const appRoutingProviders: any[] = [];

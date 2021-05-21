@@ -7,12 +7,6 @@
             "method": "fetchAll"
         },
         {
-            "type": "GET",
-            "path": "/grupo-cliente/fetchAll",
-            "class": "\\Urbano\\Controller\\GrupoClienteController",
-            "method": "fetchAll"
-        },
-        {
             "type": "POST",
             "path": "/cliente/save",
             "class": "\\Urbano\\Controller\\ClienteController",
@@ -28,6 +22,30 @@
             "type": "DELETE",
             "path": "/cliente/delete",
             "class": "\\Urbano\\Controller\\ClienteController",
+            "method": "delete"
+        },
+        {
+            "type": "GET",
+            "path": "/grupo-cliente/fetchAll",
+            "class": "\\Urbano\\Controller\\GrupoClienteController",
+            "method": "fetchAll"
+        },
+        {
+            "type": "POST",
+            "path": "/grupo-cliente/save",
+            "class": "\\Urbano\\Controller\\GrupoClienteController",
+            "method": "save"
+        },
+        {
+            "type": "GET",
+            "path": "/grupo-cliente/find",
+            "class": "\\Urbano\\Controller\\GrupoClienteController",
+            "method": "find"
+        },
+        {
+            "type": "DELETE",
+            "path": "/grupo-cliente/delete",
+            "class": "\\Urbano\\Controller\\GrupoClienteController",
             "method": "delete"
         }
     ]

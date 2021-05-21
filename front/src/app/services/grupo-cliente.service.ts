@@ -31,6 +31,56 @@ export class GrupoClienteService {
         return _gruposClientes;
     }
 
+    find(id: number): any {
+        let _grupoCliente: any;
+        let _data = {id: id};
+        let self = this;
+        $.ajax({
+            url: '/examen/back/grupo-cliente/find',
+            type: 'get',
+            data: _data,
+            dataType: 'json',
+            async: false,
+            success: function(response: any) {
+                if (response.status == 'ok') {
+                    _grupoCliente = self._dataBinding(response.data);
+                }
+            }
+        });
+        return _grupoCliente;
+    }
+    save(grupoCliente: GrupoCliente): boolean {
+        let _response = false;
+        $.ajax({
+            url: '/examen/back/grupo-cliente/save',
+            type: 'post',
+            data: grupoCliente,
+            dataType: 'json',
+            async: false
+        }).done(function(data: any, textStatus: any, jqXHR: any) {
+            if (jqXHR.status == 200 && jqXHR.responseJSON.status == 'ok') {
+                _response = true;
+            }
+        });
+        return _response;
+    }
+    delete(id: number): boolean {
+        let _response = false;
+        let data = {id: id};
+        $.ajax({
+            url: '/examen/back/grupo-cliente/delete',
+            type: 'delete',
+            data: data,
+            dataType: 'json',
+            async: false 
+        }).done(function(data: any, textStatus: any, jqXHR: any) {
+            if (jqXHR.status == 200 && jqXHR.responseJSON.status == 'ok') {
+                _response = true;
+            }
+        });
+        return _response;
+    }
+
 
     _dataBinding(data: any): GrupoCliente {
         return new GrupoCliente(data.id, data.nombre);

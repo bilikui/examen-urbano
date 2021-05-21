@@ -48,7 +48,4 @@ export class ClienteNewComponent implements OnInit {
       this._router.navigate(['/cliente']);
     }
   }
-
-
-
 }

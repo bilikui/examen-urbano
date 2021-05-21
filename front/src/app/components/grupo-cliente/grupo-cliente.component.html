@@ -1,1 +1,27 @@
-<p>grupo-cliente works!</p>
+<button class="btn btn-primary" (click)="new()">Alta de grupo de cliente</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="visually-hidden">Id</th>
+            <th align="center">Nombre</th>
+            <th align="center" colspan="2">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let grupoCliente of gruposClientes; let i = index">
+            <td class="visually-hidden">{{ grupoCliente.id }}</td>
+            <td>{{ grupoCliente.nombre }}</td>
+            <td> 
+                <button class="btn btn-update" (click)="update(grupoCliente.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>   
+            </td>
+            <td> 
+                <button class="btn" (click)="delete(grupoCliente.id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Borrar">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

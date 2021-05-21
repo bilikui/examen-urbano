@@ -38,7 +38,4 @@ export class ClienteComponent implements OnInit {
       window.location.reload();
     }
   }
-
-
-
 }
