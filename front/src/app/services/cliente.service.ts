@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import Cliente from '../models/Cliente';
+import GrupoCliente from '../models/GrupoCliente';
 
 declare var $: any;
 
@@ -10,8 +11,8 @@ export class ClienteService {
     }
 
     fetchAll(): Array<Cliente> {
-        let _clientes = Array<Cliente>();
-        let _cliente = new Cliente();
+        let _clientes = new Array<Cliente>();
+        let _cliente: Cliente;
         let self = this;
         $.ajax({
             url: '/examen/back/cliente/fetchAll',
@@ -32,8 +33,8 @@ export class ClienteService {
         return _clientes;
     }
 
-    find(id: number): Cliente {
-        let _cliente = new Cliente();
+    find(id: number): any {
+        let _cliente: any;
         let _data = {id: id};
         let self = this;
         $.ajax({
@@ -41,6 +42,7 @@ export class ClienteService {
             type: 'get',
             data: _data,
             dataType: 'json',
+            async: false,
             success: function(response: any) {
                 if (response.status == 'ok') {
                     _cliente = self._dataBinding(response.data);
@@ -73,13 +75,13 @@ export class ClienteService {
         let data = {id: id};
         $.ajax({
             url: '/examen/back/cliente/delete',
-            type: 'post',
+            type: 'delete',
             data: data,
             dataType: 'json',
-            success: function(response: any) {
-                if (response.status == 'ok') {
-                    _response = true;
-                }
+            async: false 
+        }).done(function(data: any, textStatus: any, jqXHR: any) {
+            if (jqXHR.status == 200 && jqXHR.responseJSON.status == 'ok') {
+                _response = true;
             }
         });
 
@@ -87,6 +89,7 @@ export class ClienteService {
     }
 
     _dataBinding(data: any): Cliente {
-        return new Cliente(data.id, data.nombre, data.apellido, data.email, data.observaciones, data.grupoCliente);
+        let _grupoCliente = new GrupoCliente(data.grupoCliente.id, data.grupoCliente.nombre);
+        return new Cliente(data.id, data.nombre, data.apellido, data.email, _grupoCliente, data.observaciones);
     }
 }

@@ -3,7 +3,9 @@ import Cliente from '../../models/Cliente';
 import GrupoCliente from '../../models/GrupoCliente';
 import { ClienteService } from '../../services/cliente.service';
 import { GrupoClienteService } from '../../services/grupo-cliente.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+
+declare var $: any;
 
 @Component({
   selector: 'app-cliente-new',
@@ -15,14 +17,28 @@ export class ClienteNewComponent implements OnInit {
 
   public cliente: Cliente;
   public gruposClientes: Array<GrupoCliente>;
+  public id: any;
 
-  constructor(private _clienteService: ClienteService, private _grupoClienteService: GrupoClienteService, private _router: Router) { 
-    this.cliente = new Cliente();
+  constructor(private _clienteService: ClienteService, private _grupoClienteService: GrupoClienteService, private _router: Router, private _route: ActivatedRoute) { 
+    this.cliente = new Cliente(0, '', '', '', new GrupoCliente());
     this.gruposClientes = new Array<GrupoCliente>();
   }
 
   ngOnInit(): void {
     this.gruposClientes = this._grupoClienteService.fetchAll();
+    this._route.params.subscribe((params: Params) => {
+      this.id = params.id;
+    });
+    
+    if (typeof this.id != 'undefined') {
+      this.cliente = this._clienteService.find(this.id);      
+
+      let self = this;
+      $(document).ready(function(){
+        $('select[name="grupoCliente"]').val(self.cliente.grupoCliente.id);
+      });
+
+    }
   }
 
   clienteNewSubmit() {

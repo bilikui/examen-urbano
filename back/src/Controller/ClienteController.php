@@ -29,7 +29,10 @@ class ClienteController extends Controller
                 'apellido' => $cliente->getApellido(),
                 'email' => $cliente->getEmail(),
                 'observaciones' => $cliente->getObservaciones(),
-                'grupoCliente' => $cliente->getGrupoCliente()->getNombre()
+                'grupoCliente' => [
+                    'id' => $cliente->getGrupoCliente()->getId(),
+                    'nombre' => $cliente->getGrupoCliente()->getNombre(),
+                ]
             ];
         }
 
@@ -45,37 +48,40 @@ class ClienteController extends Controller
         $nombre = $request->get('nombre');
         $apellido = $request->get('apellido');
         $email = $request->get('email');
-        $grupoClienteId = $request->get('grupoCliente');
+        $grupoCliente = $request->get('grupoCliente');
         $observaciones = $request->get('observaciones');
         $data = [];
 
-        if (empty($nombre)) {
-            throw new \Exception('El nombre es obligatorio.');
-        }
-        
-        if (empty($apellido)) {
-            throw new \Exception('El apellido es obligatorio.');
-        }
-
-        if (empty($email)) {
-            throw new \Exception('El email es obligatorio.');
-        }
-
-        if (empty($grupoClienteId)) {
-            throw new \Exception('El grupo de clientes es obligatorio.');
-        }
-
         try {
-            $cliente = new Cliente();
-            if ($id !== null) {
-                $cliente = $this->em->getRepository(Cliente::class)->find($id);
+        
+            if (empty($nombre)) {
+                throw new \Exception('El nombre es obligatorio.');
             }
-            
+        
+            if (empty($apellido)) {
+                throw new \Exception('El apellido es obligatorio.');
+            }
+
+            if (empty($email)) {
+                throw new \Exception('El email es obligatorio.');
+            }
+
+            if (empty($grupoCliente)) {
+                throw new \Exception('El grupo de clientes es obligatorio.');
+            }
+
+            $cliente = new Cliente();
+            if (!empty($id)) {
+                // Modificaciones
+                $cliente = $this->em->getRepository(Cliente::class)->find($id);
+                $grupoCliente = $grupoCliente['id'];
+            }
+        
             $cliente
                 ->setNombre($nombre)
                 ->setApellido($apellido)
                 ->setEmail($email)
-                ->setGrupoCliente($this->em->getRepository(GrupoCliente::class)->find($grupoClienteId))
+                ->setGrupoCliente($this->em->getRepository(GrupoCliente::class)->find($grupoCliente))
                 ->setObservaciones($observaciones);
 
             $this->em->persist($cliente);
@@ -83,6 +89,63 @@ class ClienteController extends Controller
 
             $data = ['status' => 'ok'];   
             
+        } catch(\Exception $e) {
+            $data = ['status' => 'nok', 'error' => $e->getMessage()];
+        }
+
+        return new JsonResponse($data);
+    }
+
+    public function find(Request $request)
+    {
+        $id = $request->get('id');
+        $cliente = $this->em->getRepository(Cliente::class)->find($id);
+
+        if (!$cliente) {
+            $data = [
+                'data' => [],
+                'status' => 'ok'
+            ];    
+            return new JsonResponse($data);           
+        }
+
+        $data['data'] = [
+            'id' => $cliente->getId(),
+            'nombre' => $cliente->getNombre(),
+            'apellido' => $cliente->getApellido(),
+            'email' => $cliente->getEmail(),
+            'observaciones' => $cliente->getObservaciones(),
+            'grupoCliente' => [
+                'id' => $cliente->getGrupoCliente()->getId(),
+                'nombre' => $cliente->getGrupoCliente()->getNombre(),
+            ]
+        ];
+
+        $data['status'] = 'ok';
+
+        return new JsonResponse($data);
+    }
+
+    public function delete(Request $request)
+    {
+        $id = $request->get('id');
+        $cliente = $this->em->getRepository(Cliente::class)->find($id);
+
+        if (!$cliente) {
+            $data = [
+                'data' => [],
+                'status' => 'ok'
+            ];    
+            return new JsonResponse($data);          
+        }
+
+        try {
+            
+            $this->em->remove($cliente);
+            $this->em->flush();
+
+            $data['status'] = 'ok';
+
         } catch(\Exception $e) {
             $data = ['status' => 'nok', 'error' => $e->getMessage()];
         }

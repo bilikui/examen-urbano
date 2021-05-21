@@ -17,7 +17,18 @@
             "path": "/cliente/save",
             "class": "\\Urbano\\Controller\\ClienteController",
             "method": "save"
+        },
+        {
+            "type": "GET",
+            "path": "/cliente/find",
+            "class": "\\Urbano\\Controller\\ClienteController",
+            "method": "find"
+        },
+        {
+            "type": "DELETE",
+            "path": "/cliente/delete",
+            "class": "\\Urbano\\Controller\\ClienteController",
+            "method": "delete"
         }
-
     ]
 }

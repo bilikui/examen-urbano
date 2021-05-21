@@ -10,7 +10,7 @@ import { GrupoClienteComponent } from './components/grupo-cliente/grupo-cliente.
 const appRoutes: Routes = [
     {path: 'cliente', component: ClienteComponent},
     {path: 'cliente/new', component: ClienteNewComponent},
-    {path: 'cliente/show/:id', component: ClienteComponent},
+    {path: 'cliente/new/:id', component: ClienteNewComponent},
     {path: 'cliente/update/:id', component: ClienteComponent},
     {path: 'cliente/delete/:id', component: ClienteComponent},
     {path: 'grupo-cliente', component: GrupoClienteComponent},

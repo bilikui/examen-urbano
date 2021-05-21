@@ -13,17 +13,12 @@ declare var $: any;
 })
 export class ClienteComponent implements OnInit {
 
-  public id = 0;
   public clientes = new Array<Cliente>();
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _clienteService: ClienteService) {
   }
 
   ngOnInit(): void {
-
-    this._route.params.subscribe((params: Params) => {
-      this.id = params.id;
-    });
 
     this.clientes = this._clienteService.fetchAll();
   }
@@ -32,13 +27,16 @@ export class ClienteComponent implements OnInit {
     this._router.navigate(['/cliente/new']);    
   }
 
-  update() {
-    let id = $("#btn-update-cliente").data('id');
-    console.log( $("#btn-update-cliente") );
+  update(id: any) {
+    this._router.navigate(['/cliente/new', id]);
   }
 
-  delete() {
-    //console.log(id);
+  delete(id: any) {
+    if (confirm('¿Desea borrar el registro?')) {
+      this._clienteService.delete(id);
+      alert("Se ha borrado el registro correctamente.");
+      window.location.reload();
+    }
   }
 
 
